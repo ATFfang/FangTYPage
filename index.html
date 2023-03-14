@@ -1,198 +1,118 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset='utf-8' />
-    <title>Mapbox GeoJSON Example</title>
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css' rel='stylesheet' />
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-        #map {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 100%;
-			z-index: 1;
-        }
-        #search-box {
-			position: absolute;
-			top: 10%;
-			left: 50%;
-			transform: translateX(-50%);
-			z-index: 2;
-			padding: 8px;
-			width: 260px;
-			background-color: #b1e5f9;
-			border: 1px solid #120246;
-			border-radius: 4px;
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-			font-size: 16px;
-			line-height: 1.5;
-			color: #333333;
-			outline: none;
-		}
+  <title>简历</title>
+  <meta charset="UTF-8">
+  <style>
+    .container {
+		display: flex;
+  		flex-direction: column;
+  		align-items: center;
+  		justify-content: center;
+    }
+	.header {
+  		display: flex;
+  		flex-direction: column;
+  		align-items: center;
+  		margin-bottom: 50px;
+	}
 
-		#layer-switch {
-			position: absolute;
-			top: 10px;
-			right: 10px;
-			z-index: 2;
-			padding: 10px;
-			background-color: #207ce600;
-			border: 1px solid #cccccc00;
-			border-radius: 4px;
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-			font-size: 16px;
-			line-height: 1.5;
-			color: #3d48dc;
-			outline: none;
-			flex-direction: column;
-		}
-		#layer-switch button {
-			margin-right: 10px;
-			background-color: #0c284799;
-			color:antiquewhite;
-			height: 25px;
-			width: 80px;
-		}
-
-		#layer-switch button:hover {
-			background-color: #57c4d0;
-		}
-
-		#layer-location {
-			position: absolute;
-			top: 50px;
-			right: 10px;
-			z-index: 3;
-			padding: 10px;
-			background-color: #207ce600;
-			border: 1px solid #cccccc00;
-			border-radius: 4px;
-			font-size: 16px;
-			line-height: 1.5;
-			color: #3d48dc00;
-			outline: none;
-			flex-direction: column;
-		}
-		#layer-location button {
-			margin-right: 10px;
-			background-color: #1745521e;
-			color:rgb(21, 18, 33);
-			height: 25px;
-			width: 80px;
-		}
-
-		#layer-location button:hover {
-			background-color: #57c4d0;
-		}
-
-    </style>
+	.header img {
+  		width: 200px;
+  		height: 200px;
+  		object-fit: cover;
+		border-radius: 50%;
+	}
+    
+    .section {
+      overflow: auto;
+	  align-items: center;
+	  width: 1000px;
+	  height: 400px;
+      padding: 20px;
+      margin-bottom: 20px;
+      background-color: #f2f2f2;
+      border-radius: 5px;
+    }
+	.section:hover {
+		transform: translateY(-10px);
+		box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+	}
+	.section-icon {
+		font-size: 80px;
+		margin-bottom: 20px;
+		color: #555;
+	}
+    
+    .map-container {
+      float: left;
+      width: 50%;
+      height: 300px;
+    }
+    
+    #map {
+      height: 100%;
+    }
+    
+    .text {
+      float: left;
+      width: 50%;
+      height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      margin: 0;
+    }
+  </style>
 </head>
 <body>
-	<input type='text' id='search-box' placeholder='请输入坐标，如：116.4074,39.9042' />
-    <div id='map'></div>
-	<div id='layer-switch'>
-		<button id='streets'>街道</button>
-		<button id='satellite'>卫星</button>
-		<button id='dark'>黑色模式</button>
-		<button id='green'>绿色模式</button>
-		<button id='gaode'>高德风格</button>
-		
-	</div>
-	<div id='layer-location'>
-		<button id="btn-locate">获取位置</button>
-	</div>
-    <script>
-        mapboxgl.accessToken = 'pk.eyJ1IjoiYXRmaWVsZDIwMjIiLCJhIjoiY2xlZjFodW1lMDR3dTNvbXVvajMwNGxzZSJ9.1FnjGYOuY7l-Us1SFatgKg';
-        var map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/navigation-night-v1',
-            center: [104.06667, 30.66667],
-            zoom: 4
-        });
+	<div class="header">
+		<img src="https://s1.ax1x.com/2023/03/14/pplruBn.jpg" alt="Your photo">
+		<h1>方天垚</h1>
+		<p>南京师范大学地理科学学院</p>
+	  </div>
+  <div class="container">
+    <div class="section" style="height: 300px;top:300px;">
+      <div class="map-container">
+        <div id="map"></div>
+      </div>
+      <div class="text">
+        <h2>个人资料</h2>
+        <p>姓名：方天垚</p>
+        <p>学历：本科</p>
+        <p>联系方式：18021647960</p>
+        <p>邮箱：fty643737159@gmail.com</p>
+      </div>
+    </div>
+    <div class="section">
+      <h2>工作经历</h2>
+      <p>保安 - 2020 年至今</p>
+      <p>保安 2018 年至 2020 年</p>
+    </div>
+    <div class="section">
+      <h2>获得奖项</h2>
+      <ul>
+        <li>2019 年度优秀保安</li>
+        <li>2018 年度优秀保安</li>
+      </ul>
+    </div>
+  </div>
 
-		// 获取按钮和地图
-		const btnLocate = document.getElementById("btn-locate");
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
 
-
-		// 点击按钮获取设备位置
-		btnLocate.addEventListener("click", () => {
-    	// 获取当前位置
-    		navigator.geolocation.getCurrentPosition(
-        		position => {
-            	// 获取到位置后，在地图上标记该位置
-            		const lngLat = [position.coords.longitude, position.coords.latitude];
-            		map.setCenter(lngLat);
-            		new mapboxgl.Marker({
-    					color: "#ff0000",
-    					size: "large",
-    					symbol: "circle",
-    					rotation: 45
-					}).setLngLat(lngLat).addTo(map);
-        		},
-        		error => {
-            		console.log(`获取位置失败：${error.message}`);
-        		}
-    		);
-		});
-
-        document.getElementById('search-box').addEventListener('keyup', function(e) {
-			if (e.keyCode === 13) { // 如果用户按下了回车键
-				var value = e.target.value;
-				if (value) {
-					var coords = value.split(',').map(function(coord) { // 将用户输入的坐标字符串转换成数组
-						return parseFloat(coord.trim());
-					});
-                    if (coords.length === 2) { // 如果坐标格式正确
-					map.flyTo({ // 移动地图到指定坐标并放大
-						center: coords,
-						zoom: 13
-					});
-
-					var marker = new mapboxgl.Marker() // 创建标注对象
-					.setLngLat(coords) // 设置标注位置
-					.addTo(map); // 将标注添加到地图中
-
-
-
-				} else {
-					alert('请输入正确的坐标格式，如：116.4074,39.9042');
-				}
-			} else {
-				alert('请输入坐标');
-			}
-		}
-	});
-
-	document.getElementById('streets').addEventListener('click', function() {
-		map.setStyle('mapbox://styles/mapbox/streets-v11');
-	});
-
-	document.getElementById('satellite').addEventListener('click', function() {
-		map.setStyle('mapbox://styles/mapbox/satellite-v9');
-	});
-
-	document.getElementById('dark').addEventListener('click', function() {
-		map.setStyle('mapbox://styles/mapbox/navigation-night-v1');
-	});
-
-	document.getElementById('green').addEventListener('click', function() {
-		map.setStyle('mapbox://styles/atfield2022/clepcn2wz000f01pori0ygb5z');
-	});
-
-	document.getElementById('gaode').addEventListener('click', function() {
-		map.setStyle('mapbox://styles/atfield2022/clf63s6dh006l01mrroga8ub8');
-	});
-	
-    </script>
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYXRmaWVsZDIwMjIiLCJhIjoiY2xlZjFodW1lMDR3dTNvbXVvajMwNGxzZSJ9.1FnjGYOuY7l-Us1SFatgKg';
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/satellite-v9',
+      center: [118.916259,32.114794],
+      zoom: 14
+    });
+  </script>
 </body>
 </html>
-
-
-
-
